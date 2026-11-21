@@ -1,6 +1,7 @@
 settings:
   one-power-per-player: true
   save-interval-seconds: 60
+  cooldown-seconds: 15
 
 messages:
   prefix: "&8[&5Zorvex Powers&8] &r"

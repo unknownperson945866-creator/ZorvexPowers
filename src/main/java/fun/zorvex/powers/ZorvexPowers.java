@@ -1,9 +1,14 @@
 package fun.zorvex.powers;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 public final class ZorvexPowers extends JavaPlugin {
+    public static final String POWER_CHANNEL = "zorvexpowers:power";
     private PlayerDataStore data;
     private PowerMenu menu;
     private AbilityService abilities;
@@ -14,6 +19,7 @@ public final class ZorvexPowers extends JavaPlugin {
         data = new PlayerDataStore(this);
         menu = new PowerMenu(this);
         abilities = new AbilityService(this);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, POWER_CHANNEL);
 
         PowerCommand command = new PowerCommand(this);
         if (getCommand("powers") == null || getCommand("zorvexpowers") == null) {
@@ -32,7 +38,19 @@ public final class ZorvexPowers extends JavaPlugin {
     @Override
     public void onDisable() {
         if (data != null) data.saveAll();
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this, POWER_CHANNEL);
         getLogger().info("ZorvexPowers disabled.");
+    }
+
+    public void syncPower(Player player) {
+        PowerType power = data.getPower(player.getUniqueId());
+        String value = power == null ? "NONE" : power.name();
+        player.sendPluginMessage(this, POWER_CHANNEL, value.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public void syncPower(UUID playerId) {
+        Player player = getServer().getPlayer(playerId);
+        if (player != null) syncPower(player);
     }
 
     public PlayerDataStore data() { return data; }

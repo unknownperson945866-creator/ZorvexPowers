@@ -1,5 +1,6 @@
 package fun.zorvex.powers;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -7,10 +8,29 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 
 public final class PowerListener implements Listener {
     private static final String MENU_TITLE = "§5§lZorvex Powers";
+    private final ZorvexPowers plugin;
+
+    public PowerListener(ZorvexPowers plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onMenuClick(InventoryClickEvent event) {
-        if (event.getView().getTitle().equals(MENU_TITLE)) event.setCancelled(true);
+        if (!event.getView().getTitle().equals(MENU_TITLE)) return;
+        event.setCancelled(true);
+
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (event.getClickedInventory() == null ||
+                event.getClickedInventory() != event.getView().getTopInventory()) return;
+
+        if (event.getSlot() == 22) {
+            if (!player.hasPermission("zorvexpowers.use")) {
+                player.sendMessage(plugin.msg("no-permission"));
+                return;
+            }
+            player.closeInventory();
+            plugin.abilities().cast(player);
+        }
     }
 
     @EventHandler

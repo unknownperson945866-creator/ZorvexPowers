@@ -14,5 +14,8 @@ public final class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent event) { plugin.data().load(event.getPlayer()); }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) { plugin.data().save(event.getPlayer().getUniqueId()); }
+    public void onQuit(PlayerQuitEvent event) {
+        plugin.data().save(event.getPlayer().getUniqueId());
+        plugin.abilities().clear(event.getPlayer().getUniqueId());
+    }
 }

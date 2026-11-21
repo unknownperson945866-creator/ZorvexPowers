@@ -26,7 +26,7 @@ public final class PowerMenu {
         Material[] icons = {Material.BLAZE_POWDER, Material.PACKED_ICE,
                 Material.HEART_OF_THE_SEA, Material.GLOWSTONE_DUST,
                 Material.BLUE_ICE, Material.SLIME_BALL,
-                Material.AMETHYST_SHARD, Material.CHAIN};
+                Material.AMETHYST_SHARD, Material.IRON_BARS};
         PowerType[] powers = PowerType.values();
         for (int i = 0; i < powers.length; i++) {
             PowerType power = powers[i];

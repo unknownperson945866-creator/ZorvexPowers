@@ -1,39 +1,81 @@
 settings:
-  one-power-per-player: true
+  one-power-per-player: false
   save-interval-seconds: 60
-  cooldown-seconds: 15
+
+spin:
+  first-join-only: true
+
+recipes:
+  enabled: true
+
+# Ability stays active for duration-seconds. Cooldown starts when the duration ends.
+powers:
+  AGNI:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  BOREAS:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  OCEANIC:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  EOS:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  YMIR:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  CORROSIVE:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  ASTRAEUS:
+    duration-seconds: 60
+    cooldown-seconds: 120
+  CHAINED:
+    duration-seconds: 60
+    cooldown-seconds: 120
+
+# Progress earned while the matching power item is held in the main hand.
+# Each power has a different task. Thresholds are progress needed for each next level.
+progression:
+  AGNI:
+    task: "Get player/mob kills"
+    level-1: 10
+    level-2: 25
+  BOREAS:
+    task: "Travel while sprinting"
+    level-1: 100
+    level-2: 250
+  OCEANIC:
+    task: "Travel while swimming"
+    level-1: 100
+    level-2: 250
+  EOS:
+    task: "Collect experience points"
+    level-1: 100
+    level-2: 250
+  YMIR:
+    task: "Mine ice or snow blocks"
+    level-1: 25
+    level-2: 75
+  CORROSIVE:
+    task: "Break cactus/magma/nether wart blocks or consume spider eyes"
+    level-1: 25
+    level-2: 75
+  ASTRAEUS:
+    task: "Teleport using ender pearls"
+    level-1: 10
+    level-2: 30
+  CHAINED:
+    task: "Craft chains"
+    level-1: 10
+    level-2: 30
 
 messages:
   prefix: "&8[&5Zorvex Powers&8] &r"
   no-permission: "&cYou don't have permission."
   player-only: "&cThis command can only be used by a player."
-  no-power: "&cYou don't have a power yet."
-  power-assigned: "&aYour power is now &d%power%&a."
-  power-removed: "&cYour power was removed."
+  no-power: "&cHold a power item in your main hand."
+  power-assigned: "&aYou received &d%power%&a."
+  power-removed: "&cYour held power item was removed."
   reloaded: "&aConfiguration reloaded."
-
-powers:
-  AGNI:
-    display-name: "&cAgni"
-    description: "&7Master the heat of fire."
-  BOREAS:
-    display-name: "&bBoreas"
-    description: "&7Command the freezing wind."
-  OCEANIC:
-    display-name: "&3Oceanic"
-    description: "&7Harness the force of water."
-  EOS:
-    display-name: "&eEos"
-    description: "&7Channel radiant energy."
-  YMIR:
-    display-name: "&9Ymir"
-    description: "&7Wield ancient frost."
-  CORROSIVE:
-    display-name: "&2Corrosive"
-    description: "&7Control corrosive nature."
-  ASTRAEUS:
-    display-name: "&dAstraeus"
-    description: "&7Draw power from the cosmos."
-  CHAINED:
-    display-name: "&8Chained"
-    description: "&7Bend shadow and binding energy."

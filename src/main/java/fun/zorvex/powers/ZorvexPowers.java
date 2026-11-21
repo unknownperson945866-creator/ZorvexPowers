@@ -16,11 +16,16 @@ public final class ZorvexPowers extends JavaPlugin {
         abilities = new AbilityService(this);
 
         PowerCommand command = new PowerCommand(this);
+        if (getCommand("powers") == null || getCommand("zorvexpowers") == null) {
+            getLogger().severe("Commands are missing from plugin.yml; disabling plugin.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         getCommand("powers").setExecutor(command);
         getCommand("zorvexpowers").setExecutor(command);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        getServer().getPluginManager().registerEvents(new PowerListener(), this);
+        getServer().getPluginManager().registerEvents(new PowerListener(this), this);
         getLogger().info("ZorvexPowers enabled. Eight active abilities registered.");
     }
 

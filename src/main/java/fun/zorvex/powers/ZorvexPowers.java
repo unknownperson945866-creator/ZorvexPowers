@@ -11,14 +11,14 @@ public final class ZorvexPowers extends JavaPlugin {
     public static final String POWER_CHANNEL = "zorvexpowers:power";
     private PlayerDataStore data;
     private PowerMenu menu;
-    private AbilityService abilities;
+    private AbilityService abilities;\n    private ItemPowerSystem itemPowers;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         data = new PlayerDataStore(this);
         menu = new PowerMenu(this);
-        abilities = new AbilityService(this);
+        abilities = new AbilityService(this);\n        itemPowers = new ItemPowerSystem(this);
         getServer().getMessenger().registerOutgoingPluginChannel(this, POWER_CHANNEL);
 
         PowerCommand command = new PowerCommand(this);
@@ -31,7 +31,7 @@ public final class ZorvexPowers extends JavaPlugin {
         getCommand("zorvexpowers").setExecutor(command);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        getServer().getPluginManager().registerEvents(new PowerListener(this), this);
+        getServer().getPluginManager().registerEvents(new PowerListener(this), this);\n        getServer().getPluginManager().registerEvents(itemPowers, this);
         getLogger().info("ZorvexPowers enabled. Eight active abilities registered.");
     }
 
@@ -55,7 +55,7 @@ public final class ZorvexPowers extends JavaPlugin {
 
     public PlayerDataStore data() { return data; }
     public PowerMenu menu() { return menu; }
-    public AbilityService abilities() { return abilities; }
+    public AbilityService abilities() { return abilities; }\n    public ItemPowerSystem itemPowers() { return itemPowers; }
 
     public String msg(String key) {
         String prefix = getConfig().getString("messages.prefix", "&8[&5Zorvex Powers&8] &r");

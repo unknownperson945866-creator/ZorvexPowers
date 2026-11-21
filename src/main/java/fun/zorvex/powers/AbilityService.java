@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public final class AbilityService {
-    private static final long COOLDOWN_MS = 15_000L;
     private final ZorvexPowers plugin;
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 
@@ -29,6 +28,7 @@ public final class AbilityService {
         }
 
         long now = System.currentTimeMillis();
+        long cooldownMs = Math.max(0, plugin.getConfig().getInt("settings.cooldown-seconds", 15)) * 1000L;
         long readyAt = cooldowns.getOrDefault(player.getUniqueId(), 0L);
         if (readyAt > now) {
             long seconds = (readyAt - now + 999) / 1000;
@@ -104,7 +104,7 @@ public final class AbilityService {
             }
         }
 
-        cooldowns.put(player.getUniqueId(), now + COOLDOWN_MS);
+        cooldowns.put(player.getUniqueId(), now + cooldownMs);
         return true;
     }
 
@@ -117,7 +117,8 @@ public final class AbilityService {
                 count, 1.5, 1.0, 1.5, 0.08);
     }
 
-    private void affectNearby(Player caster, double radius, java.util.function.Consumer<LivingEntity> action) {
+    private void affectNearby(Player caster, double radius,
+                              java.util.function.Consumer<LivingEntity> action) {
         for (var entity : caster.getNearbyEntities(radius, radius, radius)) {
             if (entity instanceof LivingEntity target && target != caster && !target.isDead()) {
                 action.accept(target);

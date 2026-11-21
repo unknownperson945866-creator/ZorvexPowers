@@ -38,7 +38,7 @@ Progress is earned only while the matching item is in the main hand:
 - YMIR — mine ice/snow.
 - CORROSIVE — break selected nature/magma blocks or consume spider eyes.
 - ASTRAEUS — ender-pearl teleports.
-- CHAINED — craft chains.
+- CHAINED — craft vanilla iron bars.
 
 Each level threshold is configurable under `progression`. Progress resets when the item levels up. Maximum level is 3.
 

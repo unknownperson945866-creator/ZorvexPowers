@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "zorvexpowers",
+  "version": "${version}",
+  "name": "ZORVEX POWERS",
+  "description": "Client-side companion HUD for the ZorvexPowers Paper plugin.",
+  "environment": "client",
+  "entrypoints": { "client": ["fun.zorvex.client.ZorvexPowersClient"] },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

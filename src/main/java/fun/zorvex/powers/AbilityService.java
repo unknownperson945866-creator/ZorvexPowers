@@ -108,6 +108,10 @@ public final class AbilityService {
         return true;
     }
 
+    public void clear(UUID playerId) {
+        cooldowns.remove(playerId);
+    }
+
     private void burst(Player player, Particle particle, int count) {
         player.getWorld().spawnParticle(particle, player.getLocation().add(0, 1, 0),
                 count, 1.5, 1.0, 1.5, 0.08);

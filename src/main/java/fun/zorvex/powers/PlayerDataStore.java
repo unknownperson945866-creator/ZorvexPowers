@@ -25,10 +25,14 @@ public final class PlayerDataStore {
 
     public void load(Player player) {
         File file = fileFor(player.getUniqueId());
-        if (!file.exists()) return;
+        if (!file.exists()) {
+            cache.remove(player.getUniqueId());
+            return;
+        }
         String raw = YamlConfiguration.loadConfiguration(file).getString("power");
         PowerType power = PowerType.fromString(raw);
-        if (power != null) cache.put(player.getUniqueId(), power);
+        if (power == null) cache.remove(player.getUniqueId());
+        else cache.put(player.getUniqueId(), power);
     }
 
     public PowerType getPower(UUID uuid) { return cache.get(uuid); }
@@ -37,6 +41,7 @@ public final class PlayerDataStore {
         if (power == null) cache.remove(uuid);
         else cache.put(uuid, power);
         save(uuid);
+        plugin.syncPower(uuid);
     }
 
     public void save(UUID uuid) {

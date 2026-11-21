@@ -283,7 +283,7 @@ public final class ItemPowerSystem implements Listener {
             progress(event.getPlayer(), PowerType.ASTRAEUS, 1);
     }
     @EventHandler public void onCraft(CraftItemEvent event) {
-        if (event.getWhoClicked() instanceof Player player && event.getRecipe().getResult().getType() == Material.CHAIN)
+        if (event.getWhoClicked() instanceof Player player && event.getRecipe().getResult().getType() == Material.IRON_BARS)
             progress(player, PowerType.CHAINED, 1);
     }
 
@@ -299,7 +299,7 @@ public final class ItemPowerSystem implements Listener {
             case AGNI -> Material.BLAZE_POWDER; case BOREAS -> Material.PACKED_ICE;
             case OCEANIC -> Material.HEART_OF_THE_SEA; case EOS -> Material.GLOWSTONE_DUST;
             case YMIR -> Material.BLUE_ICE; case CORROSIVE -> Material.SLIME_BALL;
-            case ASTRAEUS -> Material.AMETHYST_SHARD; case CHAINED -> Material.CHAIN;
+            case ASTRAEUS -> Material.AMETHYST_SHARD; case CHAINED -> Material.IRON_BARS;
         };
     }
 
@@ -312,7 +312,7 @@ public final class ItemPowerSystem implements Listener {
         addRecipe(PowerType.YMIR, Material.BLUE_ICE, Material.SNOW_BLOCK, Material.POWDER_SNOW_BUCKET, Material.DIAMOND);
         addRecipe(PowerType.CORROSIVE, Material.SPIDER_EYE, Material.FERMENTED_SPIDER_EYE, Material.SLIME_BALL, Material.CACTUS);
         addRecipe(PowerType.ASTRAEUS, Material.ENDER_PEARL, Material.AMETHYST_SHARD, Material.ECHO_SHARD, Material.NETHER_STAR);
-        addRecipe(PowerType.CHAINED, Material.CHAIN, Material.IRON_INGOT, Material.PHANTOM_MEMBRANE, Material.LEAD);
+        addRecipe(PowerType.CHAINED, Material.IRON_BARS, Material.IRON_INGOT, Material.PHANTOM_MEMBRANE, Material.LEAD);
     }
 
     private void addRecipe(PowerType power, Material a, Material b, Material c, Material d) {

@@ -2,6 +2,7 @@ package fun.zorvex.powers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,9 +25,9 @@ public final class PowerCommand implements CommandExecutor {
                 return true;
             }
             if (args.length > 0 && args[0].equalsIgnoreCase("cast")) {
-                plugin.abilities().cast(player);
+                if (!plugin.itemPowers().activate(player)) player.sendMessage("§cHold a Zorvex power item in your main hand, then use /powers cast or right-click.");
             } else {
-                plugin.menu().open(player);
+                plugin.itemPowers().showHeldInfo(player);
             }
             return true;
         }
@@ -61,9 +62,8 @@ public final class PowerCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Player not online or unknown power.");
                     return true;
                 }
-                plugin.data().setPower(target.getUniqueId(), power);
-                target.sendMessage(plugin.msg("power-assigned").replace("%power%", power.color() + power.displayName()));
-                sender.sendMessage(ChatColor.GREEN + "Assigned " + power.name() + " to " + target.getName());
+                plugin.itemPowers().give(target, power);
+                sender.sendMessage(ChatColor.GREEN + "Gave a " + power.name() + " power item to " + target.getName());
             }
             case "remove" -> {
                 if (args.length < 2) {
@@ -75,9 +75,13 @@ public final class PowerCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Player is not online.");
                     return true;
                 }
-                plugin.data().setPower(target.getUniqueId(), null);
-                target.sendMessage(plugin.msg("power-removed"));
-                sender.sendMessage(ChatColor.GREEN + "Removed power from " + target.getName());
+                if (plugin.itemPowers().getPower(target.getInventory().getItemInMainHand()) == null) {
+                    sender.sendMessage(ChatColor.RED + "That player must hold the power item in their main hand.");
+                    return true;
+                }
+                target.getInventory().setItemInMainHand(new org.bukkit.inventory.ItemStack(Material.AIR));
+                target.sendMessage("§cYour held power item was removed by an admin.");
+                sender.sendMessage(ChatColor.GREEN + "Removed the held power item from " + target.getName());
             }
             default -> sender.sendMessage(ChatColor.RED + "Unknown subcommand. Use /zp.");
         }

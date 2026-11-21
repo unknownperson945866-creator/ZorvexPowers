@@ -1,4 +1,4 @@
-name: Build Zorvex Powers
+name: Build Zorvex Powers Paper Plugin
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-paper:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
@@ -19,21 +19,10 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: maven
-      - name: Set up Gradle 9.6
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9.6.0'
       - name: Build Paper plugin
         run: mvn --batch-mode --no-transfer-progress clean package
-      - name: Build Fabric client mod
-        run: gradle --no-daemon -p fabric-client build
       - name: Upload Paper plugin JAR
         uses: actions/upload-artifact@v4
         with:
           name: ZorvexPowers-Paper
           path: target/ZorvexPowers-1.0.0.jar
-      - name: Upload Fabric client mod JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: ZorvexPowers-Fabric-26.3
-          path: fabric-client/build/libs/zorvex-powers-client-1.0.0.jar

@@ -20,8 +20,8 @@ public final class PowerMenu {
         PowerType current = plugin.data().getPower(player.getUniqueId());
         inventory.setItem(4, item(Material.NETHER_STAR, "§dYour Power",
                 List.of(current == null ? "§7No power assigned" :
-                        current.color() + current.displayName(),
-                        "§8Use /powers to view your power.")));
+                                current.color() + current.displayName(),
+                        "§8Your assigned power is shown here.")));
 
         Material[] icons = {Material.BLAZE_POWDER, Material.PACKED_ICE,
                 Material.HEART_OF_THE_SEA, Material.GLOWSTONE_DUST,
@@ -32,9 +32,14 @@ public final class PowerMenu {
             PowerType power = powers[i];
             List<String> lore = new ArrayList<>();
             lore.add("§7" + power.description());
-            lore.add(current == power ? "§aCurrently assigned" : "§8Contact an admin to obtain");
+            lore.add(current == power ? "§aCurrently assigned" : "§8Admin-assigned power");
             inventory.setItem(10 + i, item(icons[i], power.color() + power.displayName(), lore));
         }
+
+        inventory.setItem(22, item(Material.NETHER_STAR, "§d§lCast Ability",
+                List.of("§7Use your assigned power ability.",
+                        "§eClick to cast", "§8Cooldown: " +
+                                plugin.getConfig().getInt("settings.cooldown-seconds", 15) + " seconds")));
         player.openInventory(inventory);
     }
 

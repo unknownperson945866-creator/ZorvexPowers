@@ -283,8 +283,18 @@ public final class ItemPowerSystem implements Listener {
             progress(event.getPlayer(), PowerType.ASTRAEUS, 1);
     }
     @EventHandler public void onCraft(CraftItemEvent event) {
-        if (event.getWhoClicked() instanceof Player player && event.getRecipe().getResult().getType() == Material.IRON_BARS)
+        ItemStack crafted = event.getCurrentItem();
+        if (crafted != null && getPower(crafted) != null) {
+            ItemMeta craftedMeta = crafted.getItemMeta();
+            craftedMeta.getPersistentDataContainer().set(idKey, PersistentDataType.STRING, UUID.randomUUID().toString());
+            crafted.setItemMeta(craftedMeta);
+            event.setCurrentItem(crafted);
+        }
+        if (event.getWhoClicked() instanceof Player player
+                && event.getRecipe().getResult().getType() == Material.IRON_BARS
+                && getPower(event.getRecipe().getResult()) == null) {
             progress(player, PowerType.CHAINED, 1);
+        }
     }
 
     private void refreshLore(ItemMeta meta, PowerType power, int level, int progress) {

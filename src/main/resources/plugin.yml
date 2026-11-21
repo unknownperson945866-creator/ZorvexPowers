@@ -1,0 +1,23 @@
+name: ZorvexPowers
+version: 1.0.0
+main: fun.zorvex.powers.ZorvexPowers
+api-version: '26.3'
+authors: [Zorvex]
+description: Original powers and abilities for Zorvex SMP.
+commands:
+  powers:
+    description: Open your powers menu and manage your power.
+    usage: /powers
+    aliases: [power, zpowers]
+  zorvexpowers:
+    description: Admin commands for Zorvex Powers.
+    usage: /zorvexpowers <reload|give|remove|list>
+    aliases: [zp]
+    permission: zorvexpowers.admin
+permissions:
+  zorvexpowers.use:
+    description: Allows use of the powers system.
+    default: true
+  zorvexpowers.admin:
+    description: Allows administration of Zorvex Powers.
+    default: op

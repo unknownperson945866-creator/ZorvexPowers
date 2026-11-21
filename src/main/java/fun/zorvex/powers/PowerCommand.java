@@ -23,7 +23,11 @@ public final class PowerCommand implements CommandExecutor {
                 player.sendMessage(plugin.msg("no-permission"));
                 return true;
             }
-            plugin.menu().open(player);
+            if (args.length > 0 && args[0].equalsIgnoreCase("cast")) {
+                plugin.abilities().cast(player);
+            } else {
+                plugin.menu().open(player);
+            }
             return true;
         }
 

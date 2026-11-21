@@ -11,7 +11,11 @@ public final class PlayerListener implements Listener {
     public PlayerListener(ZorvexPowers plugin) { this.plugin = plugin; }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) { plugin.data().load(event.getPlayer()); }
+    public void onJoin(PlayerJoinEvent event) {
+        plugin.data().load(event.getPlayer());
+        plugin.getServer().getScheduler().runTaskLater(plugin,
+                () -> plugin.syncPower(event.getPlayer()), 20L);
+    }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
